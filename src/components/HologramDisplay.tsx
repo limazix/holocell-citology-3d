@@ -31,6 +31,9 @@ export const HologramDisplay: React.FC<HologramDisplayProps> = ({ imageUrl, isLo
             animate={{ opacity: 1, scale: 1 }}
             className="relative w-[80vh] h-[80vh] max-w-full max-h-full"
           >
+            {/* Holographic Scanline Effect */}
+            <div className="absolute inset-0 pointer-events-none z-10 bg-[linear-gradient(transparent_0%,rgba(255,255,255,0.03)_50%,transparent_100%)] bg-[length:100%_4px] animate-[scanline_8s_linear_infinite]" />
+            
             {/* Top Perspective (Upside Down) */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/3 rotate-180">
               <img src={imageUrl} alt="Top" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
