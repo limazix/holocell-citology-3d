@@ -89,5 +89,50 @@ export const ORGANELLES: Organelle[] = [
     function: 'Manutenção da forma celular, suporte mecânico e transporte intracelular.',
     structure: 'Composto por microtúbulos, microfilamentos de actina e filamentos intermediários.',
     prompt: '3D visualization of the cellular cytoskeleton. A complex web of glowing protein fibers (microtubules and filaments) inside a cell. Black background, abstract biological structure, high detail.'
+  },
+  {
+    id: 'plasma-membrane',
+    name: 'Membrana Plasmática',
+    scientificName: 'Membrana Plasmatica',
+    description: 'A barreira seletiva que envolve a célula.',
+    function: 'Controle da entrada e saída de substâncias, proteção e reconhecimento celular.',
+    structure: 'Bicamada fosfolipídica com proteínas integrais e periféricas, colesterol e carboidratos (modelo do mosaico fluido).',
+    prompt: 'A 3D cross-section of a cell membrane. Show the phospholipid bilayer with embedded proteins and cholesterol molecules. Fluid mosaic model, glowing biological textures, black background, scientific detail.'
+  },
+  {
+    id: 'er-smooth',
+    name: 'Retículo Endoplasmático Liso',
+    scientificName: 'Reticulum Endoplasmicum Glabrum',
+    description: 'Rede de túbulos membranosos sem ribossomos aderidos.',
+    function: 'Síntese de lipídios (como esteroides), metabolismo de carboidratos e desintoxicação.',
+    structure: 'Sistema de túbulos ramificados e interconectados, com aparência lisa.',
+    prompt: '3D render of Smooth Endoplasmic Reticulum. A network of smooth, branching membranous tubules. Translucent biological texture, black background, high detail, scientific visualization.'
+  },
+  {
+    id: 'ribosomes',
+    name: 'Ribossomos',
+    scientificName: 'Ribosoma',
+    description: 'Pequenas estruturas granulares responsáveis pela síntese proteica.',
+    function: 'Tradução do RNA mensageiro em cadeias polipeptídicas (proteínas).',
+    structure: 'Composto por duas subunidades (maior e menor) formadas por RNA ribossômico e proteínas.',
+    prompt: '3D model of a ribosome showing the large and small subunits joined together. Molecular biology style, glowing protein synthesis visualization, black background, high detail.'
+  },
+  {
+    id: 'nucleolus',
+    name: 'Nucléolo',
+    scientificName: 'Nucleolus',
+    description: 'Região densa e não membranosa dentro do núcleo.',
+    function: 'Local de síntese do RNA ribossômico (rRNA) e montagem das subunidades dos ribossomos.',
+    structure: 'Aglomerado denso de RNA, proteínas e cromatina organizada em torno dos organizadores nucleolares.',
+    prompt: 'A high-detail 3D render of a nucleolus inside a nucleus. Dense, glowing spherical structure with granular and fibrillar components. Black background, cinematic biological lighting.'
+  },
+  {
+    id: 'microvilli',
+    name: 'Microvilosidades',
+    scientificName: 'Microvillus',
+    description: 'Projeções digitiformes da membrana plasmática.',
+    function: 'Aumento da área de superfície da célula para otimizar a absorção de nutrientes.',
+    structure: 'Extensões citoplasmáticas em forma de dedo, sustentadas internamente por feixes de microfilamentos de actina.',
+    prompt: '3D close-up of cell microvilli. Finger-like projections on the cell surface, showing the internal actin filament support. Black background, microscopic biological style, high detail.'
   }
 ];
