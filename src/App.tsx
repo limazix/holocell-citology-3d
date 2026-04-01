@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ORGANELLES, Organelle } from './types';
-import { generateOrganelleImage } from './services/geminiService';
+import { getOrganelleImage } from './services/geminiService';
 import { HologramDisplay } from './components/HologramDisplay';
 import { OrganelleInfo } from './components/OrganelleInfo';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Microscope } from 'lucide-react';
-import './firebase'; // Initialize Firebase
+import { signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 
 export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,28 +14,50 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   const currentOrganelle = ORGANELLES[currentIndex];
 
+  // Initialize Anonymous Auth
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthReady(true);
+      } else {
+        signInAnonymously(auth).catch((err) => {
+          console.error("Erro na autenticação anônima:", err);
+          setError("Erro ao conectar com o servidor de segurança.");
+        });
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   const fetchImage = useCallback(async (organelle: Organelle) => {
-    if (images[organelle.id]) return;
+    if (images[organelle.id] || !isAuthReady) return;
 
     setLoading(true);
     setError(null);
     try {
-      const url = await generateOrganelleImage(organelle.prompt);
+      const url = await getOrganelleImage(organelle.id, organelle.prompt);
       setImages(prev => ({ ...prev, [organelle.id]: url }));
-    } catch (err) {
-      setError('Erro ao gerar imagem holográfica. Verifique sua conexão ou chave de API.');
+    } catch (err: any) {
+      if (err.code === 'storage/unauthorized') {
+        setError('Permissão negada no Firebase Storage. Verifique as Regras de Segurança.');
+      } else {
+        setError('Erro ao carregar imagem holográfica.');
+      }
       console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [images]);
+  }, [images, isAuthReady]);
 
   useEffect(() => {
-    fetchImage(currentOrganelle);
-  }, [currentIndex, fetchImage, currentOrganelle]);
+    if (isAuthReady) {
+      fetchImage(currentOrganelle);
+    }
+  }, [currentIndex, fetchImage, currentOrganelle, isAuthReady]);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % ORGANELLES.length);
